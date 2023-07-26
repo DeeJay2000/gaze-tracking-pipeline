@@ -4,7 +4,7 @@ from typing import Tuple, Union
 import cv2
 import numpy as np
 import yaml
-
+from screeninfo import get_monitors
 
 def get_monitor_dimensions() -> Union[Tuple[Tuple[int, int], Tuple[int, int]], Tuple[None, None]]:
     """
@@ -12,6 +12,13 @@ def get_monitor_dimensions() -> Union[Tuple[Tuple[int, int], Tuple[int, int]], T
     from on https://github.com/NVlabs/few_shot_gaze/blob/master/demo/monitor.py
     :return: tuple of monitor width and height in mm and pixels or None
     """
+    for m in get_monitors():
+        if m.is_primary is True:
+            w_mm = m.width_mm
+            h_mm = m.height_mm
+            w_pixels = m.width
+            h_pixels = m.height
+    return (344, 174), (w_pixels, h_pixels)
     try:
         import pgi
 
